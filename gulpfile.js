@@ -20,9 +20,21 @@ gulp.task('copyHtml', function(){
 
 // Copy Fonts
 gulp.task('copyFonts', function(){
-  gulp.src('src/fonts/*')
-      .pipe(gulp.dest('dist/fonts/*'));
-});
+  gulp.src('bower_components/font-awesome/fonts/*')
+      .pipe(gulp.dest('dist/fonts/'));
+})
+
+// Copy Bootstrap js
+gulp.task('copyBootstrapJS', function(){
+  gulp.src('bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js')
+      .pipe(gulp.dest('dist/js/'));
+})
+
+// Copy jQuery js
+gulp.task('copyjQueryJS', function(){
+  gulp.src('bower_components/jquery/dist/jquery.min.js')
+      .pipe(gulp.dest('dist/js/'));
+})
 
 // Optimize Images
 gulp.task('imageMin', () =>
@@ -30,13 +42,6 @@ gulp.task('imageMin', () =>
 		.pipe(imagemin())
 		.pipe(gulp.dest('dist/images'))
 );
-
-// Minify JS
-gulp.task('minify', function(){
-  gulp.src('src/js/*.js')
-      .pipe(uglify())
-      .pipe(gulp.dest('dist/js'));
-});
 
 // Compile Sass
 gulp.task('sass', function(){
@@ -47,13 +52,14 @@ gulp.task('sass', function(){
 
 // Scripts
 gulp.task('scripts', function(){
-  gulp.src('src/js/*.js')
-      .pipe(concat('scripts.js'))
+  // Minify and copy
+  gulp.src('src/js/*')
+      .pipe(concat('script.js'))
       .pipe(uglify())
       .pipe(gulp.dest('dist/js'));
 });
 
-gulp.task('default', ['copyHtml', 'copyFonts', 'imageMin', 'sass', 'scripts']);
+gulp.task('default', ['copyHtml', 'copyFonts', 'copyBootstrapJS', 'copyjQueryJS', 'imageMin', 'sass', 'scripts']);
 
 gulp.task('watch', function(){
   gulp.watch('src/js/*.js', ['scripts']);
@@ -61,4 +67,6 @@ gulp.task('watch', function(){
   gulp.watch('src/sass/*.scss', ['sass']);
   gulp.watch('src/*.html', ['copyHtml']);
   gulp.watch('src/fonts/*', ['copyFonts']);
+  gulp.watch('bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js', ['copyBootstrapJS']);
+  gulp.watch('bower_components/jquery/dist/jquery.min.js', ['copyjQueryJS']);
 });

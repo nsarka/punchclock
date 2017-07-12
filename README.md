@@ -11,6 +11,4 @@ Used for recording hours.
 4. run 'bower install font-awesome'
 5. run 'gulp'
 
-Then the files will be in the dist/ folder.
-
 Enjoy
