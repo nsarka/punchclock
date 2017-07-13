@@ -15,5 +15,10 @@
     "gulp-imagemin": "^3.3.0",
     "gulp-sass": "^3.1.0",
     "gulp-uglify": "^3.0.0"
+  },
+  "dependencies": {
+    "express": "^4.15.3",
+    "mongoose": "^4.11.1",
+    "passport": "^0.3.2"
   }
 }

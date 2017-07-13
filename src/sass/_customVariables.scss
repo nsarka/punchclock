@@ -4,7 +4,10 @@ $bootstrap-sass-asset-helper: false !default;
 // --------------------------------------------------
 
 // Custom
-$main-color: #21ce99;
+$main-color: #EBF5FB;
+$main-color-2: #5DADE2;
+$main-color-3: #2874A6;
+$main-color-4: #1B4F72;
 $icon-size: 60px;
 
 
@@ -19,7 +22,7 @@ $gray:                   lighten($gray-base, 33.5%) !default; // #555
 $gray-light:             lighten($gray-base, 46.7%) !default; // #777
 $gray-lighter:           lighten($gray-base, 93.5%) !default; // #eee
 
-$brand-primary:         darken($main-color, 3.5%) !default; // #337ab7
+$brand-primary:         $main-color-3 !default; // #337ab7
 $brand-success:         #5cb85c !default;
 $brand-info:            #5bc0de !default;
 $brand-warning:         #f0ad4e !default;
@@ -374,7 +377,7 @@ $navbar-padding-vertical:          (($navbar-height - $line-height-computed) / 2
 $navbar-collapse-max-height:       340px !default;
 
 $navbar-default-color:             #ccc !default;
-$navbar-default-bg:                #21ce99 !default;
+$navbar-default-bg:                $main-color !default;
 $navbar-default-border:            darken($navbar-default-bg, 6.5%) !default;
 
 // Navbar links

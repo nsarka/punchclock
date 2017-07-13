@@ -11,4 +11,6 @@ Used for recording hours.
 4. run 'bower install font-awesome'
 5. run 'gulp'
 
+Run 'node server.js' and then you're golden.
+
 Enjoy
