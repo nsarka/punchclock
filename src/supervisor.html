@@ -60,57 +60,46 @@
               <li><a href="/dash.html">Analytics</a></li>
               <li><a href="/dash.html">Export</a></li>
             </ul>
-            <ul class="nav nav-sidebar" v-if="supervisor">
+            <ul class="nav nav-sidebar">
               <li><h4>Supervisor Menu</h4></li>
               <li><a href="/supervisor.html">Approve/Disapprove</a></li>
             </ul>
           </div>
           <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">{{ name }}</h1>
+            <h1 class="page-header">Approve/Disapprove</h1>
 
             <div class="row">
-              <div class="col-xs-6 col-sm-3 col-md-offset-1">
-                <img
-                  id="bigRedButton"
-                  src="images/button-up.png" 
-                  width="600"
-                  height="600"
-                  class="img-responsive"
-                  alt="Click me"
-                  v-on:click="punchTheClock()"
-                  @mouseup="buttonUp"
-                  @mousedown="buttonDown"
-                >
-              </div>
               <div class="col-xs-6 col-sm-3">
-                <h2 class="punchedIn" v-if="punchStatus.punchedIn">Punched In</h2>
-                <h2 class="punchedOut" v-else>Punched Out</h2>
+                <h1></h1>
               </div>
             </div>
 
-            <h2 class="sub-header">Work</h2>
-            <div class="table-responsive">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>Date (mm/dd/yy)</th>
-                    <th>In</th>
-                    <th>Out</th>
-                    <th>Hours</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="session in userHours.allWorkSessions"
-                      v-bind:class="[ session.approved ? 'approvedWorkSession' : '' ]"
-                  >
-                      <td>{{ session.date }}</td>
-                      <td>{{ session.in }}</td>
-                      <td>{{ session.out }}</td>
-                      <td>{{ session.hours }}</td>
-                      <td v-if="session.approved">Approved</td>
-                  </tr>
-                </tbody>
-              </table>
+            <div v-for="user in hoursToApprove">
+              <h2 class="sub-header">{{ user.info.name }}</h2>
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Date (mm/dd/yy)</th>
+                      <th>In</th>
+                      <th>Out</th>
+                      <th>Hours</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="workSession in user.info.allUnapprovedWorkSessions">
+                      <td>{{ workSession.date }}</td>
+                      <td>{{ workSession.in }}</td>
+                      <td>{{ workSession.out }}</td>
+                      <td>{{ workSession.hours }}</td>
+                      <td>
+                        <button type="button" class="btn btn-primary">Approve</button>
+                        <button type="button" class="btn btn-default" onclick="alert('Will implement this later. For now, if something needs to be fixed in the database let me know.')">Disapprove</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>

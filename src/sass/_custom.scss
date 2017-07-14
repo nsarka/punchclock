@@ -49,8 +49,16 @@ h1, h2, h3, h4 {
 	font-family: 'Pacifico', cursive;
 }
 
-.punchstatus {
+.punchedIn, .punchedOut {
 	font-family: 'Helvetica';
+}
+
+.punchedIn {
+	color: firebrick;
+}
+
+.punchedOut {
+	color: #ccc;
 }
 
 // CSS for dashboard
@@ -78,6 +86,7 @@ h1, h2, h3, h4 {
 	margin-right: -21px; /* 20px padding + 1px border */
 	margin-bottom: 20px;
 	margin-left: -20px;
+	margin-top: 20px;
 }
 
 .nav-sidebar {
@@ -92,4 +101,8 @@ h1, h2, h3, h4 {
 .nav-sidebar > .active > a:focus {
 	color: set-text-color($main-color-2);
 	background-color: $main-color-2;
+}
+
+.approvedWorkSession {
+	background-color: $approved-color;
 }

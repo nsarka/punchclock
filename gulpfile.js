@@ -39,7 +39,12 @@ gulp.task('copyjQueryJS', function(){
 // Optimize Images
 gulp.task('imageMin', () =>
 	gulp.src('src/images/*')
-		.pipe(imagemin())
+		.pipe(imagemin({
+      interlaced: true,
+      progressive: true,
+      optimizationLevel: 5,
+      svgoPlugins: [{removeViewBox: true}]
+    }))
 		.pipe(gulp.dest('dist/images'))
 );
 

@@ -16,79 +16,143 @@
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+
+    <!-- Vuejs -->
+    <script src="https://unpkg.com/vue"></script>
   </head>
 
   <body>
-
-    <nav class="navbar navbar-default">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Punchclock</a>
+    <div id="app">
+      <nav class="navbar navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Punchclock</a>
+          </div>
+          <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="">Home</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="http://twitter.com/cs_optic"><i class="fa fa-twitter"></i></a></li>
+              <li><a href="http://twitter.com/cs_optic"><i class="fa fa-facebook"></i></a></li>
+              <li><a href="http://twitter.com/cs_optic"><i class="fa fa-google-plus"></i></a></li>
+              <li><a href="http://twitter.com/cs_optic"><i class="fa fa-linkedin"></i></a></li>
+              <li><a href="" data-toggle="modal" data-target="#signUpModal">Register</a></li>
+              <li><a href="" data-toggle="modal" data-target="#signInModal">Sign in</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
         </div>
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="">Home</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="http://twitter.com/cs_optic"><i class="fa fa-twitter"></i></a></li>
-            <li><a href="http://twitter.com/cs_optic"><i class="fa fa-facebook"></i></a></li>
-            <li><a href="http://twitter.com/cs_optic"><i class="fa fa-google-plus"></i></a></li>
-            <li><a href="http://twitter.com/cs_optic"><i class="fa fa-linkedin"></i></a></li>
-            <li><a href="/auth/register">Register</a></li>
-            <li><a href="/auth/login">Sign in</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </nav>
+      </nav>
 
-    <div class="showcase">
-      <div class="container">
-        <h1>Punchclock</h1>
-        <p class="lead">Apex Software LLC's way of recording hours spent working.</p>
-        <div class="pull-right">
-          <a href="/auth/register" class="btn btn-default">Register</a>
-          <a href="/auth/login" class="btn btn-primary">Sign In</a>
+      <div class="showcase">
+        <div class="container">
+          <h1>Punchclock</h1>
+          <p class="lead">Apex Software LLC's way of recording hours spent working.</p>
+          <div class="pull-right">
+            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#signUpModal">Register</button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signInModal">Sign In</button>
+          </div>
         </div>
       </div>
+
+      <div class="section-a">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4">
+              <i class="fa fa-html5"></i>
+              <h3>Company Made</h3>
+              <p>Written by the CTO, Punchclock was developed in-house and deployed to Apex servers in July 2017.</p>
+            </div>
+            <div class="col-md-4">
+              <i class="fa fa-gear"></i>
+              <h3>Powerful</h3>
+              <p>Punchclock creates records by itself. The application handles recording your hours for you.</p>
+            </div>
+            <div class="col-md-4">
+              <i class="fa fa-lightbulb-o"></i>
+              <h3>Easy</h3>
+              <p>It's simple, just hit the big red button to punch in and out. A supervisor will then approve of your hours.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <div class="container">
+          <span class="text-muted">Copyright &copy Apex Software LLC</span>
+        </div>
+      </footer>
+
+      <div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="signUpModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="signUpModalLabel">Register</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>We will store this information in our database. Please make sure it is accurate as we will use it in the future.</p>
+              <p>You will use your email to log in.</p>
+              <form>
+                <label>First Name</label>
+                <input type="text" name="firstname" class="span3">
+                <label>Last Name</label>
+                <input type="text" name="lastname" class="span3">
+                <label>Email Address</label>
+                <input type="email" name="email" class="span3">
+                <label>Username</label>
+                <input type="text" name="username" class="span3">
+                <label>Password</label>
+                <input type="password" name="password" class="span3">
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Register</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="signInModal" tabindex="-1" role="dialog" aria-labelledby="signInModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="signInModalLabel">Log in</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <label>Email Address</label>
+                <input type="text" name="email" class="span3">
+                <label>Password</label>
+                <input type="text" name="password" class="span3">
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Sign in</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
-
-    <div class="section-a">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <i class="fa fa-html5"></i>
-            <h3>Company Made</h3>
-            <p>Written by the CTO, Punchclock was developed in-house and deployed to Apex servers in July 2017.</p>
-          </div>
-          <div class="col-md-4">
-            <i class="fa fa-gear"></i>
-            <h3>Powerful</h3>
-            <p>Punchclock creates records by itself. The application handles recording your hours for you.</p>
-          </div>
-          <div class="col-md-4">
-            <i class="fa fa-lightbulb-o"></i>
-            <h3>Easy</h3>
-            <p>It's simple, just hit the big red button to punch in and out. A supervisor will then approve of your hours.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <footer class="footer">
-      <div class="container">
-        <span class="text-muted">Copyright &copy Apex Software LLC</span>
-      </div>
-    </footer>
 
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/script.js"></script>
-
+    <script src="/socket.io/socket.io.js"></script>
+    
   </body>
 </html>
