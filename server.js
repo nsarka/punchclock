@@ -1,52 +1,88 @@
-const passport = require('passport')
-  , LocalStrategy = require('passport-local').Strategy
-const mongoose = require('mongoose')
-const express = require('express')
-  , http = require('http');
+/*    A lot of this code (most) does not belong to me
+      This app was created under a time constraint      */
 
-var app = express();
-var server = http.createServer(app);
-var io = require('socket.io').listen(server);
 
-// Serve static files
+const passport      = require('passport')
+const LocalStrategy = require('passport-local').Strategy
+const mongoose      = require('mongoose')
+const express       = require('express')
+const session       = require('express-session')
+const cookieParser  = require('cookie-parser')
+const morgan        = require('morgan')
+const path          = require('path')
+const bodyParser    = require('body-parser')
+const flash         = require('req-flash')
+const http          = require('http')
+
+var app             = express()
+var server          = http.createServer(app)
+var io              = require('socket.io').listen(server)
+
+var configDB = require('./config/database.js')
+
+require('./config/passport')(passport); // pass passport for configuration
+
+// configuration ===============================================================
+mongoose.connect(configDB.url)                                  // connect to our database
+
+// Set up express application
+app.use(morgan('dev'))                                          // log every request to the console
+app.use(cookieParser())                                         // read cookies (needed for auth)
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+app.use(session({
+    secret: 'thesupersecretsecret',
+    name: 'punchclock',
+//    store: sessionStore, // connect-mongo session store
+    proxy: true,
+    resave: true,
+    saveUninitialized: true
+}))
+app.use(flash())
+
+
+// Set up passport
+app.use(session({ secret: 'ilovescchscotcscotchstch' }))        // session secret
+app.use(passport.initialize())
+app.use(passport.session())                                     // persistent login sessions
 app.use('/', express.static('dist'))
 
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-    User.findOne({ username: username }, function (err, user) {
-      if (err) { return done(err); }
-      if (!user) {
-        return done(null, false, { message: 'Incorrect username.' });
-      }
-      if (!user.validPassword(password)) {
-        return done(null, false, { message: 'Incorrect password.' });
-      }
-      return done(null, user);
-    });
-  }
-));
+// Routes
+app.post('/auth/signup', passport.authenticate('local-signup', {
+  successRedirect : '/dash', // redirect to the secure profile section
+  failureRedirect : '/', // redirect back to the signup page if there is an error
+}));
 
-app.post('/auth/login', passport.authenticate('local', { successRedirect: '/dash',
-                                                    failureRedirect: '/login' }));
+app.post('/auth/login', passport.authenticate('local-login', {
+  successRedirect : '/dash', // redirect to the secure profile section
+  failureRedirect : '/', // redirect back to the signup page if there is an error
+}));
 
-app.post( '/auth/login',
-  passport.authenticate('local'),
+app.post('/auth/register', passport.authenticate('local-signup', {
+  successRedirect : '/dash', // redirect to the secure profile section
+  failureRedirect : '/', // redirect back to the signup page if there is an error
+}));
 
-  function(req, res) {
-    // If this function gets called, authentication was successful.
-    // `req.user` contains the authenticated user.
-    res.redirect('/users/' + req.user.username);
-  });
-
-passport.serializeUser(function(user, done) {
-  done(null, user.id);
-});
-
-passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
-    done(err, user);
+app.get('/auth/logout', function (req, res){
+  req.session.destroy(function (err) {
+    res.redirect('/'); //Inside a callback… bulletproof!
   });
 });
 
+app.get('/dash', isLoggedIn, function(req, res) {
+  res.sendFile(path.join(__dirname + '/dist/dash.html'));
+})
 
-server.listen(8080);
+app.get('/supervisor', isLoggedIn, function(req, res) {
+  res.sendFile(path.join(__dirname + '/dist/supervisor.html'));
+})
+
+// route middleware to ensure user is logged in
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated())
+        return next();
+
+    res.redirect('/');
+}
+
+server.listen(80);
